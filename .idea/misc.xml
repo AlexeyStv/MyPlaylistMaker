@@ -3,7 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/AndroidProjects/Practicum/PlaylistMaker/app/src/main/res/layout/activity_main.xml" value="0.32083333333333336" />
+        <entry key="..\:/AndroidProjects/Practicum/PlaylistMaker/app/src/main/res/drawable/button_style.xml" value="0.154" />
+        <entry key="..\:/AndroidProjects/Practicum/PlaylistMaker/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/AndroidProjects/Practicum/PlaylistMaker/app/src/main/res/layout/activity_mediateka.xml" value="0.1" />
+        <entry key="..\:/AndroidProjects/Practicum/PlaylistMaker/app/src/main/res/layout/activity_search.xml" value="0.1" />
+        <entry key="..\:/AndroidProjects/Practicum/PlaylistMaker/app/src/main/res/layout/activity_settings.xml" value="0.1" />
       </map>
     </option>
   </component>

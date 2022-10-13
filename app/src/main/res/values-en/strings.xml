@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">First Activity</string>
+
+    <!--  APP  -->
+
+    <!--  activity_main  -->
+    <string name="am_header">Playlist maker</string>
+    <string name="am_search">Search</string>
+    <string name="am_media">Media</string>
+    <string name="am_settings">Settings</string>
+
+    <!--  activity_settings  -->
+    <string name="as_header">Settings</string>
+    <string name="as_theme">Dark theme</string>
+    <string name="as_share">Share app</string>
+    <string name="as_support">Write to support</string>
+    <string name="as_agreement">Terms of use</string>
+    <string name="as_back">Back</string>
+
+</resources>

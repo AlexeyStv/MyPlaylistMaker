@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/am_white"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_gravity="start|center_vertical"
+            android:baselineAlignBottom="true"
+            android:contentDescription="@string/as_back"
+            android:src="@drawable/ic_arrow_back" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="44dp"
+            android:paddingEnd="0dp"
+            android:text="@string/am_settings"
+            android:textColor="@color/am_textColor"
+            android:textSize="@dimen/as_HeaderText" />
+
+    </FrameLayout>
+
+
+    <FrameLayout
+        style="@style/frameLayoutStyleSetting"
+        android:layout_marginTop="40dp">
+
+        <TextView
+            style="@style/textStyleSetting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/as_theme" />
+
+        <Switch
+            style="@style/icoStyleSetting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+    </FrameLayout>
+
+    <FrameLayout style="@style/frameLayoutStyleSetting">
+
+        <TextView
+            style="@style/textStyleSetting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/as_share" />
+
+        <ImageView
+            style="@style/icoStyleSetting"
+            android:layout_width="16dp"
+            android:layout_height="18dp"
+            android:contentDescription="@string/as_share"
+            android:src="@drawable/ic_share" />
+    </FrameLayout>
+
+    <FrameLayout style="@style/frameLayoutStyleSetting">
+
+        <TextView
+            style="@style/textStyleSetting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/as_support" />
+
+        <ImageView
+            style="@style/icoStyleSetting"
+            android:layout_width="20dp"
+            android:layout_height="18dp"
+            android:contentDescription="@string/as_support"
+            android:src="@drawable/ic_support" />
+    </FrameLayout>
+
+    <FrameLayout style="@style/frameLayoutStyleSetting">
+
+        <TextView
+            style="@style/textStyleSetting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/as_agreement" />
+
+        <ImageView
+            style="@style/icoStyleSetting"
+            android:layout_width="8dp"
+            android:layout_height="14dp"
+            android:contentDescription="@string/as_agreement"
+            android:src="@drawable/ic_arrow_forward" />
+    </FrameLayout>
+
+</LinearLayout>
