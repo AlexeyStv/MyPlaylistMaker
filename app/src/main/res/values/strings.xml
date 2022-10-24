@@ -5,15 +5,15 @@
 
     <!--  activity_main  -->
     <string name="am_header">Playlist maker</string>
-    <string name="am_search">Поиск</string>
-    <string name="am_media">Медиатека</string>
-    <string name="am_settings">Настройки</string>
+    <string name="am_search">Search</string>
+    <string name="am_media">Media</string>
+    <string name="am_settings">Settings</string>
 
     <!--  activity_settings  -->
-    <string name="as_header">Настройки</string>
-    <string name="as_theme">Темная тема</string>
-    <string name="as_share">Поделиться приложением</string>
-    <string name="as_support">Написать в поддержку</string>
-    <string name="as_agreement">Пользовательское соглашение</string>
-    <string name="as_back">Назад</string>
+    <string name="as_header">Settings</string>
+    <string name="as_theme">Dark theme</string>
+    <string name="as_share">Share app</string>
+    <string name="as_support">Write to support</string>
+    <string name="as_agreement">Terms of use</string>
+    <string name="as_back">Back</string>
 </resources>

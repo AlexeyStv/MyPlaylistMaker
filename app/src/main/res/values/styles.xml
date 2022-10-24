@@ -16,6 +16,8 @@
         <item name="android:textColor">@color/am_textColor</item>
     </style>
 
+
+
     <style name="icoStyleSetting">
         <item name="android:layout_gravity">end|center_vertical</item>
         <item name="android:baselineAlignBottom">true</item>
@@ -25,6 +27,16 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:orientation">horizontal</item>
+        <item name="android:paddingTop">@dimen/as_paddingLine</item>
+        <item name="android:paddingBottom">@dimen/as_paddingLine</item>
+    </style>
+
+
+    <style name="textViewSetting">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/am_textColor</item>
         <item name="android:paddingTop">@dimen/as_paddingLine</item>
         <item name="android:paddingBottom">@dimen/as_paddingLine</item>
     </style>

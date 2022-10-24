@@ -10,6 +10,10 @@
 
     <!--  APP  -->
 
+    <!--  icons -->
+    <color name="ic_black">#1A1B22</color>
+    <color name="ic_gray">#AEAFB4</color>
+
     <!--  activity_main  -->
     <color name="am_bgColor">#3772E7</color>
     <color name="am_white">#FFFFFF</color>
@@ -17,4 +21,5 @@
     <color name="am_textColor">#1A1B22</color>
 
     <!--  activity_settings  -->
+
 </resources>

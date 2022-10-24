@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Playlist Maker</string>
+
+    <!--  APP  -->
+
+    <!--  activity_main  -->
+    <string name="am_header">Playlist maker</string>
+    <string name="am_search">Поиск</string>
+    <string name="am_media">Медиатека</string>
+    <string name="am_settings">Настройки</string>
+
+    <!--  activity_settings  -->
+    <string name="as_header">Настройки</string>
+    <string name="as_theme">Темная тема</string>
+    <string name="as_share">Поделиться приложением</string>
+    <string name="as_support">Написать в поддержку</string>
+    <string name="as_agreement">Пользовательское соглашение</string>
+    <string name="as_back">Назад</string>
+
+</resources>

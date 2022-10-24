@@ -24,7 +24,7 @@
         android:layout_marginTop="@dimen/margin8"
         android:layout_marginBottom="@dimen/margin8"
 
-        android:layout_weight="0.3"
+        android:layout_weight="1"
         android:backgroundTint="@color/am_white"
         android:text="@string/am_search"
         app:cornerRadius="@dimen/cRadius_button"
@@ -41,7 +41,7 @@
         android:layout_marginTop="@dimen/margin8"
         android:layout_marginBottom="@dimen/margin8"
 
-        android:layout_weight="0.3"
+        android:layout_weight="1"
         android:backgroundTint="@color/am_white"
         android:text="@string/am_media"
         app:cornerRadius="@dimen/cRadius_button"
@@ -58,7 +58,7 @@
         android:layout_marginTop="@dimen/margin8"
         android:layout_marginBottom="@dimen/margin8"
 
-        android:layout_weight="0.3"
+        android:layout_weight="1"
         android:backgroundTint="@color/am_white"
         android:text="@string/am_settings"
         app:cornerRadius="@dimen/cRadius_button"
