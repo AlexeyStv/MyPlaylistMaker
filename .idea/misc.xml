@@ -12,11 +12,10 @@
         <entry key="..\:/AndroidProjects/Practicum/PlaylistMaker/app/src/main/res/drawable/ic_settings.xml" value="0.253" />
         <entry key="..\:/AndroidProjects/Practicum/PlaylistMaker/app/src/main/res/drawable/ic_share.xml" value="0.253" />
         <entry key="..\:/AndroidProjects/Practicum/PlaylistMaker/app/src/main/res/drawable/ic_support.xml" value="0.253" />
-        <entry key="..\:/AndroidProjects/Practicum/PlaylistMaker/app/src/main/res/drawable/ic_vector.xml" value="0.193" />
-        <entry key="..\:/AndroidProjects/Practicum/PlaylistMaker/app/src/main/res/layout/activity_main.xml" value="0.22" />
-        <entry key="..\:/AndroidProjects/Practicum/PlaylistMaker/app/src/main/res/layout/activity_mediateka.xml" value="0.25" />
-        <entry key="..\:/AndroidProjects/Practicum/PlaylistMaker/app/src/main/res/layout/activity_search.xml" value="0.33" />
-        <entry key="..\:/AndroidProjects/Practicum/PlaylistMaker/app/src/main/res/layout/activity_settings.xml" value="0.25" />
+        <entry key="..\:/AndroidProjects/Practicum/PlaylistMaker/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/AndroidProjects/Practicum/PlaylistMaker/app/src/main/res/layout/activity_mediateka.xml" value="0.1" />
+        <entry key="..\:/AndroidProjects/Practicum/PlaylistMaker/app/src/main/res/layout/activity_search.xml" value="0.1" />
+        <entry key="..\:/AndroidProjects/Practicum/PlaylistMaker/app/src/main/res/layout/activity_settings.xml" value="0.33" />
       </map>
     </option>
   </component>

@@ -3,11 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:background="@color/am_white"
     android:orientation="vertical"
     android:padding="20dp">
-
-    <!--android:background="@color/am_white"-->
 
     <TextView
         android:layout_width="match_parent"
@@ -15,6 +13,7 @@
         android:paddingStart="44dp"
         android:paddingEnd="0dp"
         android:text="@string/am_media"
-        style="@style/textStyleColor"
+        android:textColor="@color/am_textColor"
         android:textSize="@dimen/as_HeaderText" />
+
 </LinearLayout>
