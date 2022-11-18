@@ -34,4 +34,8 @@
     <string name="ash_hint">Поиск</string>
     <string name="ash_description">Очистить поиск</string>
 
+    <!--  search_view  -->
+    <string name="sv_albumPicture">Обложка альбома</string>
+    <string name="sv_more">Подробнее</string>
+
 </resources>

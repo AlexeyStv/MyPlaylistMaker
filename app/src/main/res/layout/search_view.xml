@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/rl_pdTop"
+        android:paddingBottom="@dimen/rl_pdBottom"
+        android:paddingStart="@dimen/rl_pdStart"
+        android:paddingEnd="@dimen/rl_pdEnd">
+        
+        <ImageView
+            android:id="@+id/ivAlbumPicture"
+            android:layout_width="@dimen/ivAlbum_width"
+            android:layout_height="@dimen/ivAlbum_height"
+            android:src="@drawable/ic_no_image"
+            android:contentDescription="@string/sv_albumPicture"/>
+
+        <ImageView
+            android:id="@+id/ivInDetailArrow"
+            android:layout_width="@dimen/ivArrow_width"
+            android:layout_height="@dimen/ivArrow_height"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_arrow_forward"
+            android:contentDescription="@string/sv_more"/>
+
+        <TextView
+            android:id="@+id/tvTrackName"
+            android:layout_toEndOf="@+id/ivAlbumPicture"
+            android:layout_toStartOf="@+id/ivInDetailArrow"
+            style="@style/searchViewText_track" />
+            <!--android:textColor="#000000 || #FFFFFF"-->
+
+        <TextView
+            android:id="@+id/tvMusicBand"
+            android:layout_toEndOf="@+id/ivAlbumPicture"
+            android:layout_toStartOf="@+id/ivInDetailArrow"
+            android:layout_below="@+id/tvTrackName"
+            style="@style/searchViewText_band" />
+            <!--android:textColor="#AEAFB4" || #FFFFFF-->
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

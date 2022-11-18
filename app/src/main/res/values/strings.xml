@@ -34,4 +34,8 @@
     <string name="ash_hint">Search</string>
     <string name="ash_description">Delete text</string>
 
+    <!--  search_view  -->
+    <string name="sv_albumPicture">Album picture</string>
+    <string name="sv_more">In details</string>
+
 </resources>
