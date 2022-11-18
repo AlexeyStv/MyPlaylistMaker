@@ -8,11 +8,29 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="red">#FF0000</color>
+    <color name="blue">#0000FF</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="green">#228B22</color>
+
     <!--  APP  -->
+
+    <!--  THEME  white-->
+    <color name="white_theme">#FFFFFF</color>
+    <color name="black_txt">#1A1B22</color>
+    <!--  THEME  black-->
+    <color name="black_theme">#1A1B22</color>
+    <color name="white_txt">#FFFFFF</color>
+
 
     <!--  icons -->
     <color name="ic_black">#1A1B22</color>
     <color name="ic_gray">#AEAFB4</color>
+    <color name="ic_white">#FFFFFF</color>
+    <!--
+    <color name="ic_swith_blue">#3772E7</color>
+    <color name="ic_swith_ligth">#AEAFB4</color>
+    -->
 
     <!--  activity_main  -->
     <color name="am_bgColor">#3772E7</color>
@@ -21,5 +39,8 @@
     <color name="am_textColor">#1A1B22</color>
 
     <!--  activity_settings  -->
+
+    <!--  activity_search  -->
+    <color name="as_backgroundSearch">#E6E8EB</color>
 
 </resources>
