@@ -3,6 +3,8 @@
     <dimen name="posterMarginTop">20dp</dimen>
 
     <!--  APP  -->
+    <!--  3 activity LinearLayout -->
+    <dimen name="app_padding20">20dp</dimen>
 
     <!--  activity_main  -->
     <dimen name="am_HeaderText">22sp</dimen>
@@ -14,8 +16,17 @@
     <dimen name="padding10">10dp</dimen>
 
     <!--  activity_settings  -->
+    <dimen name="as_drawablePadding28">28dp</dimen>
     <dimen name="as_HeaderText">22sp</dimen>
     <dimen name="as_Text">16sp</dimen>
     <dimen name="as_paddingLine">20dp</dimen>
+
+    <!--  activity_search  -->
+    <dimen name="ash_drawablePadding28">28dp</dimen>
+    <dimen name="ash_padding13">13dp</dimen>
+    <dimen name="ash_paddingTopBottom">8.5dp</dimen>
+    <dimen name="ash_paddingEndStart">13dp</dimen>
+    <dimen name="ash_textSize">16sp</dimen>
+    <dimen name="ash_marginTop">9dp</dimen>
 
 </resources>
