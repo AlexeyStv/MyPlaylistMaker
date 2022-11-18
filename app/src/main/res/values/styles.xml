@@ -4,53 +4,20 @@
         <item name="android:background">@drawable/button_style</item>
     </style>
 
-    <!-- ======================== MainActivity ======================== -->
-    <!-- backgroundColor -->
-    <style name="mainActBackgColor" >
-        <item name="android:background">@color/am_bgColor</item>
-    </style>
-
-    <style name="btnStyle" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+    <style name="textStyle">
         <item name="android:textSize">22sp</item>
         <item name="android:fontWeight">500</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textColor">@color/am_textColor</item>
-
-        <item name="android:fontFamily">@font/ys_display_medium</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">0dp</item>
-        <item name="android:layout_marginTop">@dimen/margin8</item>
-        <item name="android:layout_marginBottom">@dimen/margin8</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:backgroundTint">@color/am_white</item>
-        <item name="cornerRadius">@dimen/cRadius_button</item>
-        <item name="iconGravity">textStart</item>
-        <item name="iconPadding">@dimen/padding10</item>
-        <item name="iconTint">@color/am_icoColor</item>
     </style>
 
-
-    <!-- ======================== SettingsActivity ======================== -->
-    <!--заголовок -->
-    <style name="textStyleColor">
-        <item name="android:textColor">?attr/colorOnPrimary</item>
-    </style>
-    <!--switch_txt -->
-    <style name="textStyleSetting" parent="textStyleColor">
-        <item name="android:fontFamily">@font/ys_display_regular</item>
+    <style name="textStyleSetting">
         <item name="android:textSize">16sp</item>
-    </style>
-    <!--пункты меню -->
-    <style name="textViewSetting" parent="textStyleColor">
-        <item name="android:fontFamily">@font/ys_display_regular</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:paddingTop">@dimen/as_paddingLine</item>
-        <item name="android:paddingBottom">@dimen/as_paddingLine</item>
+        <item name="android:textColor">@color/am_textColor</item>
     </style>
 
-    <!--switch -->
+
+
     <style name="icoStyleSetting">
         <item name="android:layout_gravity">end|center_vertical</item>
         <item name="android:baselineAlignBottom">true</item>
@@ -64,30 +31,14 @@
         <item name="android:paddingBottom">@dimen/as_paddingLine</item>
     </style>
 
-    <!-- ======================== ActivitySearch ======================== -->
-    <style name="searchStyle">
+
+    <style name="textViewSetting">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-    </style>
-
-    <style name="searchFrameStyle" parent="searchStyle">
-        <item name="android:layout_marginTop">@dimen/ash_marginTop</item>
-        <item name="android:orientation">horizontal</item>
-        <item name="android:paddingTop">@dimen/ash_padding13</item>
-    </style>
-
-    <style name="searchEditTextStyle" parent="searchStyle">
-        <item name="android:inputType">text</item>
-        <item name="drawableStartCompat">@drawable/ic_search_txt</item>
-        <item name="android:padding">@dimen/ash_padding13</item>
-        <item name="android:paddingTop">@dimen/ash_paddingTopBottom</item>
-        <item name="android:paddingBottom">@dimen/ash_paddingTopBottom</item>
-        <item name="android:drawablePadding">@dimen/ash_padding13</item>
-        <item name="android:background">@color/as_backgroundSearch</item>
-        <item name="android:textColorHint">@color/ic_gray</item>
-        <item name="android:textColor">@color/black_txt</item>
-        <item name="android:fontFamily">@font/ys_display_regular</item>
-        <item name="android:textSize">@dimen/ash_textSize</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/am_textColor</item>
+        <item name="android:paddingTop">@dimen/as_paddingLine</item>
+        <item name="android:paddingBottom">@dimen/as_paddingLine</item>
     </style>
 
 </resources>

@@ -18,20 +18,4 @@
     <string name="as_agreement">Пользовательское соглашение</string>
     <string name="as_back">Назад</string>
 
-    <!--  intent  -->
-    <string name="share_message">https://practicum.yandex.ru/android-developer/</string>
-    <string name="share_title">Выберете предпочитаемый мессенджер</string>
-
-    <string name="mail_message">Спасибо разработчикам и разработчицам за крутое приложение!</string>
-    <string name="mail_header">Сообщение разработчикам и разработчицам приложения Playlist Maker</string>
-    <string name="mail_uriString">mailto:</string>
-    <string name="mail_address">i9373013@yandex.ru</string>
-    <string name="mail_title">Выберите почтовый клиент</string>
-
-    <string name="tou_url">https://yandex.ru/legal/practicum_offer/</string>
-
-    <!--  activity_search  -->
-    <string name="ash_hint">Поиск</string>
-    <string name="ash_description">Очистить поиск</string>
-
 </resources>
