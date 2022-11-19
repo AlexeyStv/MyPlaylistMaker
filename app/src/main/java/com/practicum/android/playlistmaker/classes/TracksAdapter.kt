@@ -18,7 +18,7 @@ class TracksAdapter(private var tracks: MutableList<Track>)
         holder.bind(tracks[position])
 
         holder.itemView.setOnClickListener{
-            println(" ---- choose: " + tracks[position].trackName)
+            //println(" ---- choose: " + tracks[position].trackName)
         }
     }
     override fun getItemCount(): Int {

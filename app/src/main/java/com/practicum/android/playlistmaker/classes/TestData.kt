@@ -1,8 +1,6 @@
 package com.practicum.android.playlistmaker.classes
 
-class TestData {
-
-    companion object Factory {
+object TestData {
         fun getTracks(): MutableList<Track> {
             val tracks: MutableList<Track> = arrayListOf()
             tracks.add(
@@ -38,5 +36,4 @@ class TestData {
             )
             return tracks
         }
-    }
 }
