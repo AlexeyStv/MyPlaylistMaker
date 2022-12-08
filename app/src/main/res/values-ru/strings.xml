@@ -33,6 +33,20 @@
     <!--  activity_search  -->
     <string name="ash_hint">Поиск</string>
     <string name="ash_description">Очистить поиск</string>
+    <string name="iv_description">Иконка ошибки</string>
+    <string name="btn_update">Обновить</string>
+
+    <string name="message_nothing_show">Ничего не нашлось</string>
+    <string name="message_server_error">На сервере произошла ошибка</string>
+
+    <string name="message_no_connection">Проблемы со связью</string>
+    <string name="message_no_connection_desc">Загрузка не удалась. Проверьте подключение к интернету</string>
+
+    <string name="message_empty_query">Пустой запрос</string>
+    <string name="message_empty_descr">Введите текст в поле поиска</string>
+
+    <string name="message_app_error">Неизвестная ошибка</string>
+    <string name="message_app_error_descr">Свяжитесь с разработчиком</string>
 
     <!--  search_view  -->
     <string name="sv_albumPicture">Обложка альбома</string>

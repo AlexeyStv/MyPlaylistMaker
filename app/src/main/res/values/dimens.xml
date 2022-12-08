@@ -25,7 +25,9 @@
     <dimen name="ash_drawablePadding28">28dp</dimen>
     <dimen name="ash_padding13">13dp</dimen>
     <dimen name="ash_paddingTopBottom">8.5dp</dimen>
-    <dimen name="ash_paddingEndStart">13dp</dimen>
+    <dimen name="ash_paddingStart">13dp</dimen>
+    <dimen name="ash_paddingEnd">7dp</dimen>
+    <dimen name="ash_marginEnd">6dp</dimen> <!-- (6_margin + 7_padding) = 13dp -->
     <dimen name="ash_textSize">16sp</dimen>
 
     <dimen name="ash_pdStart20">20dp</dimen>
@@ -36,6 +38,14 @@
     <dimen name="searchTxt_16">16dp</dimen>
 
     <dimen name="rv_marginTop">24dp</dimen>
+
+    <dimen name="sv_iv_layout_margin">120dp</dimen>
+    <dimen name="sv_iv_marginTop">110dp</dimen>
+    <dimen name="sv_tv_marginTop">20dp</dimen>
+    <dimen name="sv_tv_bt_margin">24dp</dimen>
+    <!--<dimen name="sv_tv_lines">2</dimen>-->
+    <dimen name="sv_tv_size">19sp</dimen>
+    <dimen name="sv_bt_corner">54sp</dimen>
 
     <!--  search_view  -->
     <dimen name="ivAlbum_width">45dp</dimen>
@@ -48,5 +58,6 @@
     <dimen name="rl_pdBottom">8dp</dimen>
     <dimen name="rl_pdStart">16dp</dimen>
     <dimen name="rl_pdEnd">20dp</dimen>
+    <!--  _view  -->
 
 </resources>

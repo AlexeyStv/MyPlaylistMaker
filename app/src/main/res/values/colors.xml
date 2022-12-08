@@ -41,9 +41,14 @@
 
     <!--  activity_settings  -->
 
+
     <!--  activity_search  -->
     <color name="as_backgroundSearch">#E6E8EB</color> <!--#E6E8EB || #FFFFFF-->
 
-
+    <!--  activity_search icons  -->
+    <color name="ic_ni_path2">#3772E7</color>
+    <color name="ic_ni_path3">#ffffff</color>
+    <color name="ic_nd_path2">#1A1B22</color>
+    <color name="ic_nd_path3">#FCD452</color>
 
 </resources>
