@@ -2,9 +2,11 @@ package com.practicum.android.playlistmaker
 
 
 import android.annotation.SuppressLint
+import android.content.Context
 //import android.content.res.Configuration
 //import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -28,11 +30,7 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_settings)
         supportActionBar?.hide()
 
-        var darkTheme = false
-        if (savedInstanceState != null)
-            darkTheme = savedInstanceState.getBoolean(DARK_THEME, false)
-        //else
-        //    darkTheme = isDarkTheme()
+        var darkTheme: Boolean = savedInstanceState?.getBoolean(DARK_THEME, false) ?: isDarkTheme()
 
         initUI(darkTheme)
     }
@@ -58,11 +56,11 @@ class SettingsActivity : AppCompatActivity() {
         tvTermOfUse.setOnClickListener { openFullTextTermOfUse() }
     }
 
-    /*
+
     private fun Context.isDarkTheme(): Boolean {
         return resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
     }
-    */
+
 
     //--------------------------------------------------//
     //region -- Buttons event --

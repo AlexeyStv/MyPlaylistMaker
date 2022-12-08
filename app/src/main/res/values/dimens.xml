@@ -27,6 +27,26 @@
     <dimen name="ash_paddingTopBottom">8.5dp</dimen>
     <dimen name="ash_paddingEndStart">13dp</dimen>
     <dimen name="ash_textSize">16sp</dimen>
-    <dimen name="ash_marginTop">9dp</dimen>
+
+    <dimen name="ash_pdStart20">20dp</dimen>
+    <dimen name="ash_pdEnd20">20dp</dimen>
+    <dimen name="ash_pdTop">14dp</dimen>
+
+    <dimen name="searchTxt_24">24dp</dimen>
+    <dimen name="searchTxt_16">16dp</dimen>
+
+    <dimen name="rv_marginTop">24dp</dimen>
+
+    <!--  search_view  -->
+    <dimen name="ivAlbum_width">45dp</dimen>
+    <dimen name="ivAlbum_height">45dp</dimen>
+
+    <dimen name="ivArrow_width">8dp</dimen>
+    <dimen name="ivArrow_height">14dp</dimen>
+
+    <dimen name="rl_pdTop">8dp</dimen>
+    <dimen name="rl_pdBottom">8dp</dimen>
+    <dimen name="rl_pdStart">16dp</dimen>
+    <dimen name="rl_pdEnd">20dp</dimen>
 
 </resources>

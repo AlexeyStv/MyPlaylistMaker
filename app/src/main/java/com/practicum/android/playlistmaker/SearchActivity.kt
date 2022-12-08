@@ -10,9 +10,19 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.practicum.android.playlistmaker.classes.TestData
+import com.practicum.android.playlistmaker.classes.Track
+import com.practicum.android.playlistmaker.classes.TracksAdapter
 
 
 class SearchActivity : AppCompatActivity() {
+
+    private lateinit var tracks:MutableList<Track>
+    private lateinit var adapterTr: TracksAdapter
+    private lateinit var recView: RecyclerView
+
 
     companion object {
         const val SEARCH_TEXT = "SEARCH_TEXT"
@@ -26,6 +36,8 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
         supportActionBar?.hide()
+
+        tracks = TestData.getTracks() //данные для теста RecyclerView
 
         var searchText = ""
         if (savedInstanceState != null)
@@ -60,6 +72,11 @@ class SearchActivity : AppCompatActivity() {
         etSearch.setText(searchTxt)
         tvBack.setOnClickListener { finish() }
         ivClearText.setOnClickListener { clearData() }
+
+        recView = findViewById(R.id.rvDataTracks)
+        adapterTr = TracksAdapter(tracks)
+        recView.adapter = adapterTr
+        recView.layoutManager = LinearLayoutManager(this)
     }
 
     //--------------------------------------------------//

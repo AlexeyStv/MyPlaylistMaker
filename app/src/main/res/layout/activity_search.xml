@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="@dimen/app_padding20">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/tvBack"
@@ -12,6 +11,9 @@
         android:layout_height="wrap_content"
         android:text="@string/am_search"
         style="@style/textStyleColor"
+        android:paddingStart="@dimen/ash_pdStart20"
+        android:paddingEnd="@dimen/ash_pdEnd20"
+        android:paddingTop="@dimen/ash_pdTop"
         android:drawablePadding="@dimen/ash_drawablePadding28"
         android:textSize="@dimen/as_HeaderText"
         app:drawableStartCompat="@drawable/ic_arrow_back"
@@ -27,7 +29,9 @@
             android:lines="1"
             android:maxLength="30"
             android:hint="@string/ash_hint"
-            android:importantForAutofill="no" />
+            android:importantForAutofill="no"
+            android:background="@drawable/radius_search" />
+        <!--android:clipToOutline="true"-->
 
         <ImageView
             android:id="@+id/ivClearText"
@@ -42,4 +46,11 @@
             android:contentDescription="@string/ash_description"/>
 
     </FrameLayout >
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvDataTracks"
+        android:layout_marginTop="@dimen/rv_marginTop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 </LinearLayout>
