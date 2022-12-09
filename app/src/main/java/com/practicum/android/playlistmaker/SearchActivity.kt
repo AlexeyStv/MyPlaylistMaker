@@ -7,16 +7,25 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.practicum.android.playlistmaker.api.ITunesApi
 import com.practicum.android.playlistmaker.api.ITunesResponse
-import com.practicum.android.playlistmaker.classes.TestData
+import com.practicum.android.playlistmaker.classes.SState
+import com.practicum.android.playlistmaker.classes.StateEmptyText
+import com.practicum.android.playlistmaker.classes.StateEmptyTracks
+import com.practicum.android.playlistmaker.classes.StateGoodResult
+import com.practicum.android.playlistmaker.classes.StateNoConnection
+import com.practicum.android.playlistmaker.classes.StateNullResult
+import com.practicum.android.playlistmaker.classes.StateServerError
 import com.practicum.android.playlistmaker.classes.Track
 import com.practicum.android.playlistmaker.classes.TracksAdapter
 import retrofit2.Call
@@ -37,27 +46,22 @@ class SearchActivity : AppCompatActivity() {
         const val SEARCH_TEXT = "SEARCH_TEXT"
         const val CURRENT_STATE = "CURRENT_STATE"
         const val TRACK_LIST = "iTrackList"
-
-        const val NULL_RESULT = 0
-        const val GOOD_RESULT = 1
-
-        const val EMPTY_TEXT = 10
-        const val NO_CONNECTION = 20
-        const val EMPTY_TRACKS_DATA = 30
-        const val SERVER_ERROR = 40
     }
 
     //UI
     private lateinit var etSearch: EditText
     private lateinit var ivClearText: ImageView
+
     //UI Message
     private lateinit var layoutMessage: LinearLayout
     private lateinit var ivIcon: ImageView
     private lateinit var tvMainMessage: TextView
     private lateinit var tvDescMessage: TextView
     private lateinit var btUpdate: Button
+
     //
-    private var currentState: Int = NULL_RESULT
+    private var searchState: SState? = StateNullResult()
+
     private val itunesBaseUrl = "https://itunes.apple.com"
     private val retrofit = Retrofit.Builder()
         .baseUrl(itunesBaseUrl)
@@ -71,21 +75,22 @@ class SearchActivity : AppCompatActivity() {
         setContentView(R.layout.activity_search)
         supportActionBar?.hide()
 
-        var searchText = ""
-        if (savedInstanceState != null)
-        {
-            searchText = savedInstanceState.getString(SEARCH_TEXT, "").toString()
-            currentState = savedInstanceState.getInt(CURRENT_STATE, NULL_RESULT)
-            tracks = savedInstanceState.getParcelableArrayList(TRACK_LIST)!!
-        }
-
         initUI()
-        showData(searchText)
+        if (savedInstanceState != null) {
+            val searchText = savedInstanceState.getString(SEARCH_TEXT, "").toString()
+            searchState = savedInstanceState.getParcelable(CURRENT_STATE)
+            val previousTracks: ArrayList<Track> =
+                savedInstanceState.getParcelableArrayList(TRACK_LIST)!!
+            showData(searchText, previousTracks)
+        } else {
+            hideMessage()
+        }
     }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(SEARCH_TEXT, etSearch.text.toString())
-        outState.putInt(CURRENT_STATE, currentState)
+        outState.putParcelable(CURRENT_STATE, searchState)
         outState.putParcelableArrayList(TRACK_LIST, tracks)
     }
 
@@ -104,19 +109,24 @@ class SearchActivity : AppCompatActivity() {
 
         initEvent()
     }
-    private fun initEvent(){
+
+    private fun initEvent() {
+        adapterTr = TracksAdapter(tracks)
+        recView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        recView.adapter = adapterTr
+
         ivClearText.setOnClickListener { clearSearchData() }
 
         val simpleTextWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s.isNullOrEmpty()){
+                if (s.isNullOrEmpty()) {
                     ivClearText.visibility = View.INVISIBLE
                     clearRecyclerView()
-                }
-                else
+                } else
                     ivClearText.visibility = View.VISIBLE
             }
+
             override fun afterTextChanged(s: Editable?) {}
         }
 
@@ -131,20 +141,19 @@ class SearchActivity : AppCompatActivity() {
 
         btUpdate.setOnClickListener { downloadData() }
     }
-    private fun showData(searchTxt: String){
 
-        if(searchTxt.trim().isNotEmpty())
+    private fun showData(searchTxt: String, prevTracks: ArrayList<Track>) {
+
+        if (searchTxt.trim().isNotEmpty())
             etSearch.setText(searchTxt)
 
-        when(currentState)
-        {
-            NULL_RESULT -> hideMessage()
-            GOOD_RESULT ->
-            {
+        when (searchState) {
+            is StateNullResult -> hideMessage()
+            is StateGoodResult -> {
                 hideMessage()
-                showItunesData()
+                showItunesData(prevTracks)
             }
-            else -> showInfo(currentState)
+            else -> showInfo(searchState)
         }
     }
 
@@ -155,34 +164,30 @@ class SearchActivity : AppCompatActivity() {
 
         val inputMethodManager =
             getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-        val currentView = this.currentFocus //this.getCurrentFocus()
+        val currentView = this.currentFocus
         inputMethodManager?.hideSoftInputFromWindow(currentView?.windowToken, 0)
     }
-    private fun downloadData(){
-        if(checkQueryInput())
-        {
-            if(isInternet(this))
-            {
+
+    private fun downloadData() {
+        if (checkQueryInput()) {
+            if (isInternet(this)) {
                 getITunesData()
+            } else {
+                searchState = StateNoConnection()
+                showInfo(searchState)
             }
-            else
-            {
-                currentState = NO_CONNECTION
-                showInfo(NO_CONNECTION)
-            }
-        }
-        else
-        {
-            currentState = EMPTY_TEXT
-            showInfo(EMPTY_TEXT)
+        } else {
+            searchState = StateEmptyText()
+            showInfo(searchState)
         }
     }
     //endregion
 
     //
-    private fun checkQueryInput() : Boolean {
+    private fun checkQueryInput(): Boolean {
         return etSearch.text.toString().trim().isNotEmpty()
     }
+
     private fun isInternet(context: Context): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -199,91 +204,91 @@ class SearchActivity : AppCompatActivity() {
         }
         return false
     }
-    private fun showInfo(state: Int){
+
+    private fun showInfo(state: SState?){
 
         val mainMessage: String
-        val mainMessageDescr: String
+        val mainMessageDescribe: String
         val imageR: Int
 
-        when(state)
-        {
-            EMPTY_TEXT ->
+        when (state) {
+            is StateEmptyText ->
             {
                 mainMessage = resources.getString(R.string.message_empty_query)
-                mainMessageDescr = resources.getString(R.string.message_empty_descr)
+                mainMessageDescribe = resources.getString(R.string.message_empty_descr)
                 imageR = R.drawable.ic_no_data
             }
-            NO_CONNECTION ->
+            //NO_CONNECTION ->
+            is StateNoConnection ->
             {
                 mainMessage = resources.getString(R.string.message_no_connection)
-                mainMessageDescr = resources.getString(R.string.message_no_connection_desc)
+                mainMessageDescribe = resources.getString(R.string.message_no_connection_desc)
                 imageR = R.drawable.ic_no_internet
             }
 
-            EMPTY_TRACKS_DATA ->
+            is StateEmptyTracks ->
+            //EMPTY_TRACKS_DATA ->
             {
                 mainMessage = resources.getString(R.string.message_nothing_show)
-                mainMessageDescr = ""
+                mainMessageDescribe = ""
                 imageR = R.drawable.ic_no_data
             }
-            SERVER_ERROR ->
+            is StateServerError ->
+            //SERVER_ERROR ->
             {
                 mainMessage = resources.getString(R.string.message_server_error)
-                mainMessageDescr = ""
+                mainMessageDescribe = ""
                 imageR = R.drawable.ic_no_data
             }
-            else ->
-            {
+            else -> {
                 mainMessage = resources.getString(R.string.message_app_error)
-                mainMessageDescr = resources.getString(R.string.message_app_error_descr)
+                mainMessageDescribe = resources.getString(R.string.message_app_error_descr)
                 imageR = R.drawable.ic_delete_txt
             }
         }
 
-        showMessage(mainMessage, mainMessageDescr, imageR)
+        showMessage(mainMessage, mainMessageDescribe, imageR)
     }
-    private fun getITunesData(){
+
+    private fun getITunesData() {
         hideMessage()
         gettingData()
     }
-    private fun gettingData(){
-        //getTestData()
+
+    private fun gettingData() {
 
         val search = etSearch.text.toString()
         itunesService.search(search).enqueue(object : Callback<ITunesResponse> {
 
-            override fun onResponse(call: Call<ITunesResponse>, response: Response<ITunesResponse>)
-            {
-                when (response.code())
-                {
-                    200 ->
-                    {
-                        if (response.body()?.results?.isNotEmpty() == true)
-                        {
-                            tracks = response.body()?.results!!
-                            currentState = GOOD_RESULT
-                            showItunesData()
-                        }
-                        else
-                        {
-                            currentState = EMPTY_TRACKS_DATA
-                            showInfo(EMPTY_TRACKS_DATA)
+            override fun onResponse(
+                call: Call<ITunesResponse>,
+                response: Response<ITunesResponse>
+            ) {
+                when (response.code()) {
+                    200 -> {
+                        if (response.body()?.results?.isNotEmpty() == true) {
+                            val newTracks: ArrayList<Track> = response.body()?.results!!
+                            searchState = StateGoodResult()
+                            showItunesData(newTracks)
+                        } else {
+                            searchState = StateEmptyTracks()
+                            showInfo(searchState)
                         }
                     }
-                    else ->
-                    {
-                        currentState = SERVER_ERROR
-                        showInfo(SERVER_ERROR)
+                    else -> {
+                        searchState = StateServerError()
+                        showInfo(searchState)
                     }
                 }
             }
 
-            override fun onFailure(call: Call<ITunesResponse>, t: Throwable)
-            {
-                showInfo(SERVER_ERROR)
+            override fun onFailure(call: Call<ITunesResponse>, t: Throwable) {
+                searchState = StateServerError()
+                showInfo(searchState)
             }
         })
     }
+
     //
     private fun showMessage(message: String, description: String, imageR: Int) {
         ivIcon.setImageResource(imageR)
@@ -292,30 +297,28 @@ class SearchActivity : AppCompatActivity() {
         hideItunesData()
         layoutMessage.visibility = View.VISIBLE
     }
+
     private fun hideMessage() {
         ivIcon.setImageResource(R.drawable.ic_no_image)
         tvMainMessage.text = ""
         tvDescMessage.text = ""
         layoutMessage.visibility = View.INVISIBLE
     }
-    private fun clearRecyclerView(){
-        tracks = ArrayList()
-        showItunesData()
+
+    private fun clearRecyclerView() {
+        val emptyTracks = arrayListOf<Track>()
+        showItunesData(emptyTracks)
     }
-    private fun hideItunesData(){
+
+    private fun hideItunesData() {
         clearRecyclerView()
         recView.visibility = View.INVISIBLE
     }
-    private fun showItunesData(){
-        recView.visibility = View.VISIBLE
-        adapterTr = TracksAdapter(tracks)
-        recView.adapter = adapterTr
-        recView.layoutManager = LinearLayoutManager(this)
-    }
 
-    //test data
-    private fun getTestData(){
-        tracks = TestData.getTracks()
-        currentState = GOOD_RESULT
+    private fun showItunesData(newTrack: ArrayList<Track>) {
+        recView.visibility = View.VISIBLE
+        tracks.clear()
+        tracks.addAll(newTrack)
+        adapterTr.notifyDataSetChanged()
     }
 }
