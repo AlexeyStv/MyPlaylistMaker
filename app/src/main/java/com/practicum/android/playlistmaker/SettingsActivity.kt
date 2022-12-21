@@ -1,28 +1,20 @@
 package com.practicum.android.playlistmaker
 
-
-import android.annotation.SuppressLint
-import android.content.Context
-//import android.content.res.Configuration
-//import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
+import android.content.SharedPreferences
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Switch
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatDelegate
+import com.google.android.material.switchmaterial.SwitchMaterial
 
+
+const val PM_PREFERENCE = "play_maker_preference"
 
 class SettingsActivity : AppCompatActivity() {
 
-    companion object {
-        const val DARK_THEME = "DARK_THEME"
-    }
-
-    @SuppressLint("UseSwitchCompatOrMaterialCode")
-    private lateinit var swDarkTheme: Switch
+    private lateinit var themeSwitcher: SwitchMaterial
+    private lateinit var shPrefs: SharedPreferences
 
     //--------------------------------------------------//
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,45 +22,37 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_settings)
         supportActionBar?.hide()
 
-        var darkTheme: Boolean = savedInstanceState?.getBoolean(DARK_THEME, false) ?: isDarkTheme()
-
-        initUI(darkTheme)
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putBoolean(DARK_THEME, swDarkTheme.isChecked)
+        initUI()
     }
 
     //--------------------------------------------------//
-    private fun initUI(_isDarkTheme: Boolean) {
+    private fun initUI() {
         val tvBack = findViewById<TextView>(R.id.tvBack)
-        swDarkTheme = findViewById(R.id.swDarkTheme)
+
+        themeSwitcher = findViewById(R.id.themeSwitcher)
         val tvShareApp = findViewById<TextView>(R.id.tvShareApp)
         val tvSupport = findViewById<TextView>(R.id.tvSupport)
         val tvTermOfUse = findViewById<TextView>(R.id.tvTermOfUse)
 
-        tvBack.setOnClickListener { finish() }
-        swDarkTheme.isChecked = _isDarkTheme
-        swDarkTheme.setOnCheckedChangeListener { _, isChecked -> setTheme(isChecked) } // buttonView == _
         tvShareApp.setOnClickListener { shareApplication() }
         tvSupport.setOnClickListener { writeToTheSupport() }
         tvTermOfUse.setOnClickListener { openFullTextTermOfUse() }
+        tvBack.setOnClickListener { finish() }
+
+        themeSwitcher.setOnCheckedChangeListener { _, checked ->
+            (applicationContext as App).switchTheme(checked)
+            saveTheme(checked)
+        }
+        shPrefs = getSharedPreferences(PM_PREFERENCE, MODE_PRIVATE)
+        val darkTheme = shPrefs.getBoolean((applicationContext as App).THEME_KEY, false)
+        if(darkTheme)
+            themeSwitcher.isChecked = true
     }
 
-
-    private fun Context.isDarkTheme(): Boolean {
-        return resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
-    }
-
-
-    //--------------------------------------------------//
-    //region -- Buttons event --
-    private fun setTheme(isDark:Boolean) {
-        if(isDark)
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        else
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+    private fun saveTheme(checked: Boolean){
+        shPrefs.edit()
+            .putBoolean((applicationContext as App).THEME_KEY, checked)
+            .apply()
     }
 
     private fun shareApplication() {

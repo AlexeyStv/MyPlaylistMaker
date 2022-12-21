@@ -76,13 +76,15 @@ class SearchActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         initUI()
-        if (savedInstanceState != null) {
+        if (savedInstanceState != null)
+        {
             val searchText = savedInstanceState.getString(SEARCH_TEXT, "").toString()
             searchState = savedInstanceState.getParcelable(CURRENT_STATE)
-            val previousTracks: ArrayList<Track> =
-                savedInstanceState.getParcelableArrayList(TRACK_LIST)!!
+            val previousTracks: ArrayList<Track> = savedInstanceState.getParcelableArrayList(TRACK_LIST)!!
             showData(searchText, previousTracks)
-        } else {
+        }
+        else
+        {
             hideMessage()
         }
     }

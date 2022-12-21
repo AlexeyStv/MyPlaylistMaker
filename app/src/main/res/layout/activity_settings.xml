@@ -7,11 +7,6 @@
     android:orientation="vertical"
     android:padding="@dimen/app_padding20">
 
-    <!--
-    android:background="@color/am_white"
-    xmlns:tools="http://schemas.android.com/tools"
-    -->
-
     <TextView
         android:id="@+id/tvBack"
         android:layout_width="match_parent"
@@ -23,32 +18,19 @@
         app:drawableStartCompat="@drawable/ic_arrow_back"
         android:fontFamily="@font/ys_display_medium"/>
 
-    <!--android:textColor ="@color/am_textColor"-->
-
-    <FrameLayout
-        style="@style/frameLayoutStyleSetting"
-        android:layout_marginTop="40dp">
-        <TextView
-            style="@style/textStyleSetting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/as_theme" />
-
-        <Switch
-            android:id="@+id/swDarkTheme"
-            xmlns:tools="http://schemas.android.com/tools"
-            style="@style/icoStyleSetting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
-    </FrameLayout>
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/themeSwitcher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/as_theme"
+        android:layout_gravity="start"
+        style="@style/StyleSwitchMaterial" />
 
     <TextView
         android:id="@+id/tvShareApp"
         style="@style/textViewSetting"
         android:text="@string/as_share"
-        app:drawableEndCompat="@drawable/ic_share"
-        />
+        app:drawableEndCompat="@drawable/ic_share"/>
 
     <TextView
         android:id="@+id/tvSupport"
@@ -61,6 +43,5 @@
         style="@style/textViewSetting"
         android:text="@string/as_agreement"
         app:drawableEndCompat="@drawable/ic_arrow_forward" />
-
 
 </LinearLayout>
