@@ -7,17 +7,17 @@
 
     <TextView
         android:id="@+id/tvBack"
+        style="@style/textStyleColor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/am_search"
-        style="@style/textStyleColor"
-        android:paddingStart="@dimen/ash_pdStart20"
-        android:paddingEnd="@dimen/ash_pdEnd20"
-        android:paddingTop="@dimen/ash_pdTop"
         android:drawablePadding="@dimen/ash_drawablePadding28"
+        android:fontFamily="@font/ys_display_medium"
+        android:paddingStart="@dimen/ash_pdStart20"
+        android:paddingTop="@dimen/ash_pdTop"
+        android:paddingEnd="@dimen/ash_pdEnd20"
+        android:text="@string/am_search"
         android:textSize="@dimen/as_HeaderText"
-        app:drawableStartCompat="@drawable/ic_arrow_back"
-        android:fontFamily="@font/ys_display_medium"/>
+        app:drawableStartCompat="@drawable/ic_arrow_back" />
 
     <FrameLayout
         android:id="@+id/container"
@@ -26,11 +26,14 @@
         <EditText
             android:id="@+id/etSearch"
             style="@style/searchEditTextStyle"
-            android:lines="1"
-            android:maxLength="30"
+            android:background="@drawable/radius_search"
             android:hint="@string/ash_hint"
+            android:imeOptions="actionDone"
             android:importantForAutofill="no"
-            android:background="@drawable/radius_search" />
+            android:lines="1"
+
+            android:maxLength="30"
+            android:singleLine="true" />
         <!--android:clipToOutline="true"-->
 
         <ImageView
@@ -38,19 +41,57 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center|end"
-            android:src="@drawable/ic_delete_txt"
-            android:visibility="invisible"
+            android:layout_marginEnd="6dp"
             android:background="@color/as_backgroundSearch"
-            android:paddingEnd="@dimen/ash_paddingEndStart"
-            android:paddingStart="@dimen/ash_paddingEndStart"
-            android:contentDescription="@string/ash_description"/>
+            android:contentDescription="@string/ash_description"
+            android:paddingStart="@dimen/ash_paddingStart"
+            android:paddingEnd="@dimen/ash_paddingEnd"
+            android:src="@drawable/ic_delete_txt"
+            android:visibility="invisible" />
 
-    </FrameLayout >
+    </FrameLayout>
 
+    <!-- Data -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvDataTracks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/rv_marginTop"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    <!-- Error_data messages -->
+    <LinearLayout
+        android:id="@+id/LinearLayout_BadData"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/icon_message"
+            android:layout_width="@dimen/sv_iv_layout_margin"
+            android:layout_height="@dimen/sv_iv_layout_margin"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/sv_iv_marginTop"
+            android:contentDescription="@string/iv_description"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_no_data" />
+
+        <TextView
+            android:id="@+id/mainMessage"
+            style="@style/tvStyle"
+            android:layout_marginTop="@dimen/sv_tv_marginTop"
+            android:text="@string/message_nothing_show" />
+        <!---->
+        <TextView
+            android:id="@+id/descriptionMessage"
+            style="@style/tvStyle"
+            android:text="@string/message_nothing_show" />
+
+        <Button
+            android:id="@+id/btnUpdate"
+            style="@style/textButtonStyleSearch"
+            android:text="@string/btn_update" />
+    </LinearLayout>
+
 </LinearLayout>
