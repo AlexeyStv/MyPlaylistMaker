@@ -21,7 +21,7 @@ class TracksViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         tvTrackName.text = model.trackName
         val timerTrack =
             SimpleDateFormat("mm:ss", Locale.getDefault()).format(model.trackTimeMillis)
-        val nameTime = model.artistName.plus("  ·  ").plus(timerTrack)
+        val nameTime = model.artistName.plus("  ·  ").plus(timerTrack) //.plus("  ·  ").plus(model.trackId)
         tvArtistNameTime.text = nameTime
         val imageUrl = model.artworkUrl100
 
