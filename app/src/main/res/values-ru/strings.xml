@@ -36,6 +36,9 @@
     <string name="iv_description">Иконка ошибки</string>
     <string name="btn_update">Обновить</string>
 
+    <string name="you_searched">Вы искали</string>
+    <string name="clear_history">Очистить историю</string>
+
     <string name="message_nothing_show">Ничего не нашлось</string>
     <string name="message_server_error">На сервере произошла ошибка</string>
 

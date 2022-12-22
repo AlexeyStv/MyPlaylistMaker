@@ -67,7 +67,7 @@
         <item name="android:textSize">16sp</item>
     </style>
 
-    <!-- ======================== Activity ======================== -->
+    <!-- ======================== Activity search======================== -->
 
     <style name="textButtonStyleSearch"  parent="Widget.MaterialComponents.Button.UnelevatedButton">
         <item name="android:textColor">@color/black_txt</item>
@@ -79,6 +79,26 @@
         <item name="android:layout_marginTop">24dp</item>
         <item name="android:layout_gravity">center_horizontal</item>
     </style>
+
+    <style name="textButtonStyleClear" parent="Widget.MaterialComponents.Button.UnelevatedButton" >
+        <item name="android:textColor">@color/black_txt</item>
+        <item name="android:backgroundTint">@color/white_txt</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="cornerRadius">@dimen/sv_bt_corner</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <!--<item name="android:layout_marginTop">@dimen/sv_tv_bt_margin</item>-->
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textSize">@dimen/txtSize_btnClear</item>
+
+        <item name="android:layout_marginTop">@dimen/margin_top_24</item>
+        <item name="android:layout_marginBottom">@dimen/margin_top_24</item>
+        <item name="android:paddingVertical">@dimen/btnClear_paddingVertical</item>
+        <item name="android:paddingHorizontal">@dimen/btnClear_paddingHorizontal</item>
+    </style>
+
+
 
 
 </resources>

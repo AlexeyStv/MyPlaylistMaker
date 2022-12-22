@@ -5,10 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.practicum.android.playlistmaker.R
 
-class TracksAdapter(
-    private var tracks: MutableList<Track>,
-    private val listener: (Track) -> Unit
-) :
+class TracksHistoryAdapter(private var tracks: MutableList<Track>) :
     RecyclerView.Adapter<TracksViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TracksViewHolder {
@@ -18,7 +15,6 @@ class TracksAdapter(
 
     override fun onBindViewHolder(holder: TracksViewHolder, position: Int) {
         holder.bind(tracks[position])
-        holder.itemView.setOnClickListener { listener(tracks[position]) }
     }
 
     override fun getItemCount(): Int {

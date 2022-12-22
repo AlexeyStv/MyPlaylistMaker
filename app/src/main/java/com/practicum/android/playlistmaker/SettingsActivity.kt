@@ -45,11 +45,11 @@ class SettingsActivity : AppCompatActivity() {
         }
         shPrefs = getSharedPreferences(PM_PREFERENCE, MODE_PRIVATE)
         val darkTheme = shPrefs.getBoolean((applicationContext as App).THEME_KEY, false)
-        if(darkTheme)
+        if (darkTheme)
             themeSwitcher.isChecked = true
     }
 
-    private fun saveTheme(checked: Boolean){
+    private fun saveTheme(checked: Boolean) {
         shPrefs.edit()
             .putBoolean((applicationContext as App).THEME_KEY, checked)
             .apply()
