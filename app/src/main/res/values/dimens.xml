@@ -43,9 +43,17 @@
     <dimen name="sv_iv_marginTop">110dp</dimen>
     <dimen name="sv_tv_marginTop">20dp</dimen>
     <dimen name="sv_tv_bt_margin">24dp</dimen>
-    <!--<dimen name="sv_tv_lines">2</dimen>-->
+
     <dimen name="sv_tv_size">19sp</dimen>
     <dimen name="sv_bt_corner">54sp</dimen>
+    <!--history-->
+    <dimen name="margin_top_history32">32dp</dimen>
+    <dimen name="rv_marginTop8">8dp</dimen>
+    <dimen name="margin_top_24">24dp</dimen>
+
+    <dimen name="btnClear_paddingVertical">10dp</dimen>
+    <dimen name="btnClear_paddingHorizontal">14dp</dimen>
+    <dimen name="txtSize_btnClear">14sp</dimen>
 
     <!--  search_view  -->
     <dimen name="ivAlbum_width">45dp</dimen>

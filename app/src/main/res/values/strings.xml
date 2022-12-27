@@ -36,6 +36,9 @@
     <string name="iv_description">Error icon</string>
     <string name="btn_update">Update</string>
 
+    <string name="you_searched">Your search history</string>
+    <string name="clear_history">Clear history</string>
+
     <string name="message_nothing_show">Nothing was found</string>
     <string name="message_server_error">An error occurred on the server</string>
 

@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.practicum.android.playlistmaker.api.ITunesApi
 import com.practicum.android.playlistmaker.api.ITunesResponse
 import com.practicum.android.playlistmaker.classes.SState
+import com.practicum.android.playlistmaker.classes.SearchHistory
 import com.practicum.android.playlistmaker.classes.StateEmptyText
 import com.practicum.android.playlistmaker.classes.StateEmptyTracks
 import com.practicum.android.playlistmaker.classes.StateGoodResult
@@ -28,24 +29,25 @@ import com.practicum.android.playlistmaker.classes.StateNullResult
 import com.practicum.android.playlistmaker.classes.StateServerError
 import com.practicum.android.playlistmaker.classes.Track
 import com.practicum.android.playlistmaker.classes.TracksAdapter
+import com.practicum.android.playlistmaker.classes.TracksHistoryAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-
 class SearchActivity : AppCompatActivity() {
-
     //UI RecyclerView Data
     private var tracks: ArrayList<Track> = ArrayList()
-    private var adapterTr: TracksAdapter = TracksAdapter(tracks)
+    private var adapterTr: TracksAdapter =
+        TracksAdapter(tracks) { track -> history.addTrack(track) }
     private lateinit var recView: RecyclerView
 
     companion object {
         const val SEARCH_TEXT = "SEARCH_TEXT"
         const val CURRENT_STATE = "CURRENT_STATE"
         const val TRACK_LIST = "iTrackList"
+        const val PM_PREFERENCES = "pm_preferences"
     }
 
     //UI
@@ -58,6 +60,16 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var tvMainMessage: TextView
     private lateinit var tvDescMessage: TextView
     private lateinit var btUpdate: Button
+
+    //UI History
+    private lateinit var layoutHistory: LinearLayout
+    private lateinit var btnClear: Button
+    private lateinit var rvHistory: RecyclerView
+
+    //History data
+    private var historyTracks: MutableList<Track> = ArrayList(10)
+    private var adapterHistory: TracksHistoryAdapter = TracksHistoryAdapter(historyTracks)
+    private lateinit var history: SearchHistory
 
     //
     private var searchState: SState? = StateNullResult()
@@ -76,6 +88,8 @@ class SearchActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         initUI()
+        history = SearchHistory(getSharedPreferences(PM_PREFERENCES, MODE_PRIVATE))
+
         if (savedInstanceState != null) {
             val searchText = savedInstanceState.getString(SEARCH_TEXT, "").toString()
             searchState = savedInstanceState.getParcelable(CURRENT_STATE)
@@ -83,6 +97,7 @@ class SearchActivity : AppCompatActivity() {
                 savedInstanceState.getParcelableArrayList(TRACK_LIST)!!
             showData(searchText, previousTracks)
         } else {
+            showHistory()
             hideMessage()
         }
     }
@@ -107,11 +122,15 @@ class SearchActivity : AppCompatActivity() {
         tvDescMessage = findViewById(R.id.descriptionMessage)
         btUpdate = findViewById(R.id.btnUpdate)
 
+        layoutHistory = findViewById(R.id.LinearLayout_History)
+        rvHistory = findViewById(R.id.rvHistoryTracks)
+        btnClear = findViewById(R.id.btnClear)
+
         initEvent()
     }
 
     private fun initEvent() {
-        adapterTr = TracksAdapter(tracks)
+        adapterTr = TracksAdapter(tracks) { track -> history.addTrack(track) }
         recView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recView.adapter = adapterTr
 
@@ -123,6 +142,11 @@ class SearchActivity : AppCompatActivity() {
                 if (s.isNullOrEmpty()) {
                     ivClearText.visibility = View.INVISIBLE
                     clearRecyclerView()
+
+                    hideItunesData()
+                    searchState = StateServerError()
+                    history = SearchHistory(getSharedPreferences(PM_PREFERENCES, MODE_PRIVATE))
+                    showHistory()
                 } else
                     ivClearText.visibility = View.VISIBLE
             }
@@ -133,13 +157,14 @@ class SearchActivity : AppCompatActivity() {
         etSearch.addTextChangedListener(simpleTextWatcher)
         etSearch.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                // ВЫПОЛНЯЙТЕ ПОИСКОВЫЙ ЗАПРОС ЗДЕСЬ //true
-                downloadData()
+                hideHistory()
+                downloadData() // ВЫПОЛНЯЙТЕ ПОИСКОВЫЙ ЗАПРОС ЗДЕСЬ //true
             }
             false
         }
 
         btUpdate.setOnClickListener { downloadData() }
+        btnClear.setOnClickListener { clearHistoryPreferences() }
     }
 
     private fun showData(searchTxt: String, prevTracks: ArrayList<Track>) {
@@ -148,8 +173,12 @@ class SearchActivity : AppCompatActivity() {
             etSearch.setText(searchTxt)
 
         when (searchState) {
-            is StateNullResult -> hideMessage()
+            is StateNullResult -> {
+                showHistory()
+                hideMessage()
+            }
             is StateGoodResult -> {
+                hideHistory()
                 hideMessage()
                 showItunesData(prevTracks)
             }
@@ -183,7 +212,6 @@ class SearchActivity : AppCompatActivity() {
     }
     //endregion
 
-    //
     private fun checkQueryInput(): Boolean {
         return etSearch.text.toString().trim().isNotEmpty()
     }
@@ -205,36 +233,35 @@ class SearchActivity : AppCompatActivity() {
         return false
     }
 
-    private fun showInfo(state: SState?){
+    private fun showInfo(state: SState?) {
 
         val mainMessage: String
         val mainMessageDescribe: String
         val imageR: Int
+        hideHistory()
 
         when (state) {
-            is StateEmptyText ->
-            {
+            is StateEmptyText -> {
                 mainMessage = resources.getString(R.string.message_empty_query)
                 mainMessageDescribe = resources.getString(R.string.message_empty_descr)
                 imageR = R.drawable.ic_no_data
             }
             //NO_CONNECTION ->
-            is StateNoConnection ->
-            {
+            is StateNoConnection -> {
                 mainMessage = resources.getString(R.string.message_no_connection)
                 mainMessageDescribe = resources.getString(R.string.message_no_connection_desc)
                 imageR = R.drawable.ic_no_internet
             }
 
             is StateEmptyTracks ->
-            //EMPTY_TRACKS_DATA ->
+                //EMPTY_TRACKS_DATA ->
             {
                 mainMessage = resources.getString(R.string.message_nothing_show)
                 mainMessageDescribe = ""
                 imageR = R.drawable.ic_no_data
             }
             is StateServerError ->
-            //SERVER_ERROR ->
+                //SERVER_ERROR ->
             {
                 mainMessage = resources.getString(R.string.message_server_error)
                 mainMessageDescribe = ""
@@ -259,7 +286,6 @@ class SearchActivity : AppCompatActivity() {
 
         val search = etSearch.text.toString()
         itunesService.search(search).enqueue(object : Callback<ITunesResponse> {
-
             override fun onResponse(
                 call: Call<ITunesResponse>,
                 response: Response<ITunesResponse>
@@ -320,5 +346,30 @@ class SearchActivity : AppCompatActivity() {
         tracks.clear()
         tracks.addAll(newTrack)
         adapterTr.notifyDataSetChanged()
+    }
+
+    private fun showHistory() {
+        historyTracks = history.getTracksHistory().toMutableList()
+
+        if (historyTracks.size > 0) {
+            adapterHistory = TracksHistoryAdapter(historyTracks)
+            rvHistory.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            rvHistory.adapter = adapterHistory
+
+            layoutHistory.visibility = View.VISIBLE
+        } else
+            hideHistory()
+    }
+
+    private fun hideHistory() {
+        layoutHistory.visibility = View.GONE
+    }
+
+    private fun clearHistoryPreferences() {
+        historyTracks.clear()
+        historyTracks.addAll(ArrayList(10))
+        adapterHistory.notifyDataSetChanged()
+        history.clearPreferences()
+        hideHistory()
     }
 }
