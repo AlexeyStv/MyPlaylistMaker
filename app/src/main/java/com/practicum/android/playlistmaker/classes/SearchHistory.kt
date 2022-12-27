@@ -10,7 +10,8 @@ class SearchHistory(private val shPreferences: SharedPreferences) {
     fun addTrack(newTrack: Track) {
         val historyTracks: MutableList<Track> = getTracksHistory().toMutableList()
 
-        historyTracks.remove(newTrack)
+        historyTracks.remove(newTrack) //historyTracks.removeIf { it.trackId == newTrack.trackId }
+
         if (historyTracks.size == 10)
             historyTracks.remove(historyTracks[9])
 

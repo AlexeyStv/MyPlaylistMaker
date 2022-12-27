@@ -142,6 +142,11 @@ class SearchActivity : AppCompatActivity() {
                 if (s.isNullOrEmpty()) {
                     ivClearText.visibility = View.INVISIBLE
                     clearRecyclerView()
+
+                    hideItunesData()
+                    searchState = StateServerError()
+                    history = SearchHistory(getSharedPreferences(PM_PREFERENCES, MODE_PRIVATE))
+                    showHistory()
                 } else
                     ivClearText.visibility = View.VISIBLE
             }
