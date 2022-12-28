@@ -66,6 +66,21 @@
     <dimen name="rl_pdBottom">8dp</dimen>
     <dimen name="rl_pdStart">16dp</dimen>
     <dimen name="rl_pdEnd">20dp</dimen>
-    <!--  _view  -->
+
+
+    <!--  activity_track -->
+    <dimen name="at_pdGuideline16">16dp</dimen>
+    <dimen name="at_pdGuideline20">20dp</dimen>
+    <dimen name="at_pdGuideline28">28dp</dimen>
+    <dimen name="at_NameTrack22">22sp</dimen>
+    <dimen name="at_NameBand14">14sp</dimen>
+    <dimen name="at_margin8">8dp</dimen>
+    <dimen name="at_marginTop12">12dp</dimen>
+    <dimen name="at_marginTop18">18dp</dimen>
+    <dimen name="at_play_size83">83dp</dimen>
+    <dimen name="at_add_like51">51dp</dimen>
+    <dimen name="at_data_text13">13sp</dimen>
+    <dimen name="data_text_marginTop17">17dp</dimen>
+
 
 </resources>

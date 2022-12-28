@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".trackinfo.TrackActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftBorder"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/at_pdGuideline16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightBorder"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/at_pdGuideline16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/topBorder"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/at_pdGuideline20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/bottomBorder"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="@dimen/at_pdGuideline28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/ivBack"
+        style="@style/textStyleColor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/ash_drawablePadding28"
+        android:text="@string/at_empty"
+        android:textSize="@dimen/as_HeaderText"
+        app:drawableStartCompat="@drawable/ic_arrow_back"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
+        app:layout_constraintTop_toTopOf="@id/topBorder"/>
+
+
+    <TextView
+        android:id="@+id/tvTrackName"
+        android:text="@string/at_track_name"
+        style="@style/tvStyleTrackAct"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+        android:id="@+id/tvBand"
+        style="@style/tvStyleTrackAct"
+        android:text="@string/at_band_name"
+        android:textSize="@dimen/at_NameBand14"
+
+        app:layout_constraintStart_toStartOf="@+id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@+id/tvTrackName"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        android:layout_marginTop="@dimen/at_marginTop12" />
+
+    <ImageView
+        android:id="@+id/ivPlay"
+        android:layout_width="@dimen/at_play_size83"
+        android:layout_height="@dimen/at_play_size83"
+        android:src="@drawable/ic_play"
+        android:layout_marginTop="@dimen/at_marginTop18"
+        app:layout_constraintTop_toBottomOf="@+id/tvBand"
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        android:contentDescription="@string/at_cd_play"
+        />
+
+    <ImageView
+        style="@style/ivStyleSmallButton"
+        app:layout_constraintBottom_toTopOf="@+id/tvTimer"
+        app:layout_constraintTop_toBottomOf="@+id/tvBand"
+        android:src="@drawable/ic_plus"
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
+        android:contentDescription="@string/at_cd_add"
+        />
+
+    <ImageView
+        style="@style/ivStyleSmallButton"
+        app:layout_constraintBottom_toTopOf="@+id/tvTimer"
+        app:layout_constraintTop_toBottomOf="@+id/tvBand"
+        android:src="@drawable/ic_like"
+        app:layout_constraintEnd_toStartOf="@id/rightBorder"
+        android:contentDescription="@string/at_cd_like" />
+
+    <TextView
+        android:id="@+id/tvTimer"
+        style="@style/tvTimerText"
+        app:layout_constraintTop_toBottomOf="@+id/ivPlay"
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"/>
+
+    <ImageView
+        android:id="@+id/ivTrackImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_no_track_image"
+        app:layout_constraintBottom_toTopOf="@id/tvTrackName"
+        app:layout_constraintTop_toBottomOf="@+id/ivBack"
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        android:contentDescription="@string/as_back" />
+
+    <!--headers-->
+    <TextView
+        android:id="@+id/tvDurationTrack"
+        style="@style/tvStyleDataText"
+        android:text="@string/at_duration"
+        app:layout_constraintStart_toStartOf="@+id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@+id/tvTimer"
+        android:layout_marginTop="12dp"/>
+
+    <TextView
+        android:id="@+id/tvAlbum"
+        style="@style/tvStyleDataText"
+        android:text="@string/at_album"
+        app:layout_constraintStart_toStartOf="@+id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@+id/tvDurationTrack"
+        app:layout_goneMarginTop="47dp"/>
+
+    <TextView
+        android:id="@+id/tvYear"
+        style="@style/tvStyleDataText"
+        android:text="@string/at_year"
+        app:layout_constraintStart_toStartOf="@+id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@+id/tvAlbum" />
+
+    <TextView
+        android:id="@+id/tvGenre"
+        style="@style/tvStyleDataText"
+        android:text="@string/at_genre"
+        app:layout_constraintStart_toStartOf="@+id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@+id/tvYear" />
+
+    <TextView
+        android:id="@+id/tvCountry"
+        style="@style/tvStyleDataText"
+        android:text="@string/at_country"
+        app:layout_constraintStart_toStartOf="@+id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@+id/tvGenre"
+        android:layout_marginBottom="8dp"/>
+
+    <!--data-->
+    <TextView
+        android:id="@+id/tvDurationTrack_data"
+        style="@style/tvStyleDataText"
+        android:text="@string/at_duration"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintTop_toBottomOf="@+id/tvTimer"
+        android:layout_marginTop="12dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tvDurationTrack"/>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/buttonGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="tvAlbum,tvAlbum_data" />
+
+    <TextView
+        android:id="@+id/tvAlbum_data"
+        style="@style/tvStyleDataText"
+        android:text="@string/at_album"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintTop_toBottomOf="@+id/tvDurationTrack_data"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tvAlbum"
+        app:layout_goneMarginTop="47dp"/>
+
+    <TextView
+        android:id="@+id/tvYear_data"
+        style="@style/tvStyleDataText"
+        android:text="@string/at_year"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintTop_toBottomOf="@+id/tvAlbum_data"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tvYear"/>
+
+    <TextView
+        android:id="@+id/tvGenre_data"
+        style="@style/tvStyleDataText"
+        android:text="@string/at_genre"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintTop_toBottomOf="@+id/tvYear_data"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tvGenre" />
+
+    <TextView
+        android:id="@+id/tvCountry_data"
+        style="@style/tvStyleDataText"
+        android:text="@string/at_country"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintTop_toBottomOf="@+id/tvGenre_data"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tvCountry"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

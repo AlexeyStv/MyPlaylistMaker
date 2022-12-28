@@ -175,4 +175,42 @@
     </style>
 
     <!-- ======================== _view ======================== -->
+    <style name="tvStyleTrackAct" parent="textStyleColor">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/at_margin8</item>
+        <item name="android:layout_marginEnd">@dimen/at_margin8</item>
+
+        <item name="android:maxLines">1</item>
+        <item name="android:minLines">1</item>
+        <item name="android:textSize">@dimen/at_NameTrack22</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+    </style>
+
+    <style name="tvTimerText" parent="textStyleColor">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">@string/at_empty_timer</item>
+        <item name="android:textSize">@dimen/at_NameBand14</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:layout_marginTop">@dimen/at_marginTop12</item>
+    </style>
+    <style name="tvStyleDataText">
+        <item name="android:maxLines">1</item>
+        <item name="android:minLines">1</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/at_data_text13</item>
+        <item name="android:textColor">@color/data_track_txt</item>
+        <item name="android:layout_marginTop">@dimen/data_text_marginTop17</item>
+    </style>
+
+    <style name="ivStyleSmallButton">
+        <item name="android:layout_width">@dimen/at_add_like51</item>
+        <item name="android:layout_height">@dimen/at_add_like51</item>
+        <item name="android:layout_marginEnd">@dimen/at_margin8</item>
+        <item name="android:layout_marginStart">@dimen/at_margin8</item>
+    </style>
+
 </resources>

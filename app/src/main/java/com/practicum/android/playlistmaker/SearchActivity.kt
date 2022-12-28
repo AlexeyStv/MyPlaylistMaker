@@ -1,6 +1,7 @@
 package com.practicum.android.playlistmaker
 
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.appcompat.app.AppCompatActivity
@@ -30,6 +31,7 @@ import com.practicum.android.playlistmaker.classes.StateServerError
 import com.practicum.android.playlistmaker.classes.Track
 import com.practicum.android.playlistmaker.classes.TracksAdapter
 import com.practicum.android.playlistmaker.classes.TracksHistoryAdapter
+import com.practicum.android.playlistmaker.trackinfo.TrackActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -40,7 +42,10 @@ class SearchActivity : AppCompatActivity() {
     //UI RecyclerView Data
     private var tracks: ArrayList<Track> = ArrayList()
     private var adapterTr: TracksAdapter =
-        TracksAdapter(tracks) { track -> history.addTrack(track) }
+        TracksAdapter(tracks) { track ->
+            history.addTrack(track)
+            toTrackActivity(track)
+        }
     private lateinit var recView: RecyclerView
 
     companion object {
@@ -48,6 +53,7 @@ class SearchActivity : AppCompatActivity() {
         const val CURRENT_STATE = "CURRENT_STATE"
         const val TRACK_LIST = "iTrackList"
         const val PM_PREFERENCES = "pm_preferences"
+        const val TRACK_DATA = "data_track"
     }
 
     //UI
@@ -68,7 +74,9 @@ class SearchActivity : AppCompatActivity() {
 
     //History data
     private var historyTracks: MutableList<Track> = ArrayList(10)
-    private var adapterHistory: TracksHistoryAdapter = TracksHistoryAdapter(historyTracks)
+    private var adapterHistory: TracksHistoryAdapter = TracksHistoryAdapter(historyTracks){track ->
+        toTrackActivity(track)
+    }
     private lateinit var history: SearchHistory
 
     //
@@ -130,7 +138,10 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun initEvent() {
-        adapterTr = TracksAdapter(tracks) { track -> history.addTrack(track) }
+        adapterTr = TracksAdapter(tracks) {
+                track -> history.addTrack(track)
+                toTrackActivity(track)
+        }
         recView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recView.adapter = adapterTr
 
@@ -352,7 +363,9 @@ class SearchActivity : AppCompatActivity() {
         historyTracks = history.getTracksHistory().toMutableList()
 
         if (historyTracks.size > 0) {
-            adapterHistory = TracksHistoryAdapter(historyTracks)
+            adapterHistory = TracksHistoryAdapter(historyTracks){track ->
+                toTrackActivity(track)
+            }
             rvHistory.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
             rvHistory.adapter = adapterHistory
 
@@ -371,5 +384,11 @@ class SearchActivity : AppCompatActivity() {
         adapterHistory.notifyDataSetChanged()
         history.clearPreferences()
         hideHistory()
+    }
+
+    private fun toTrackActivity(track: Track){
+        val intent = Intent(this, TrackActivity::class.java)
+        intent.putExtra(TRACK_DATA, track)
+        startActivity(intent)
     }
 }
