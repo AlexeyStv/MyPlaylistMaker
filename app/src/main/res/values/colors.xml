@@ -51,4 +51,9 @@
     <color name="ic_nd_path2">#1A1B22</color>
     <color name="ic_nd_path3">#FCD452</color>
 
+    <color name="data_track_txt">#AEAFB4</color>
+    <color name="ic_grey_no_pic">#AEAFB4</color>
+    <color name="grey_small_button">#c6c6c8</color>
+    <color name="white_small_button">#ffffff</color>
+
 </resources>

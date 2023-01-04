@@ -55,4 +55,18 @@
     <string name="sv_albumPicture">Обложка альбома</string>
     <string name="sv_more">Подробнее</string>
 
+    <!--  track_activity  -->
+    <string name="at_empty">            </string>
+    <string name="at_track_name">Полное наименование трека</string>
+    <string name="at_band_name">Наименование группы</string>
+    <string name="at_duration">Продолжительность</string>
+    <string name="at_album">Альбом</string>
+    <string name="at_year">Год</string>
+    <string name="at_genre">Жанр</string>
+    <string name="at_country">Страна</string>
+    <string name="at_no_data">Неопределено</string>
+    <string name="at_cd_play">Воспроизвести</string>
+    <string name="at_cd_add">Добавить</string>
+    <string name="at_cd_like">Нравится</string>
+
 </resources>
