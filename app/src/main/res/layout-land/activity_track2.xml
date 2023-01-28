@@ -45,7 +45,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:drawablePadding="@dimen/ash_drawablePadding28"
-            android:text="@string/at_empty"
+            android:text=""
             android:textSize="@dimen/as_HeaderText"
             app:drawableStartCompat="@drawable/ic_arrow_back"
             app:layout_constraintEnd_toEndOf="@id/rightBorder"

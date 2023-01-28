@@ -25,14 +25,12 @@ data class Track(
     val releaseDate: String?,
     val primaryGenreName: String?,
     val country: String?
-) : Parcelable
-{
-    fun getArtworkUrl512(): String
-    {
-        return artworkUrl100?.replaceAfterLast('/',"512x512bb.jpg") ?: ""
+) : Parcelable {
+    fun getArtworkUrl512(): String {
+        return artworkUrl100?.replaceAfterLast('/', "512x512bb.jpg") ?: ""
     }
-    fun getDuration(): String
-    {
-        return SimpleDateFormat("mm:ss", Locale.getDefault()).format(trackTimeMillis) ?: "00:00"
+
+    fun getDuration(): String {
+        return SimpleDateFormat("mm:ss", Locale.getDefault()).format(trackTimeMillis)
     }
 }

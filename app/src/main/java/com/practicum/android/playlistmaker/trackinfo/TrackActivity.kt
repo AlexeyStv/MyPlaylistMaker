@@ -15,6 +15,7 @@ import com.practicum.android.playlistmaker.classes.Track
 class TrackActivity : AppCompatActivity() {
 
     private lateinit var track: Track
+
     //UI
     private lateinit var tvTrackImage: ImageView
     private lateinit var tvTrackName: TextView
@@ -28,7 +29,7 @@ class TrackActivity : AppCompatActivity() {
 
     private lateinit var buttonGroup: Group
 
-    companion object {
+    private companion object {
         const val ONE_TRACK = "one_track_data"
     }
 
@@ -39,25 +40,26 @@ class TrackActivity : AppCompatActivity() {
 
         initUI()
 
-        track = if(savedInstanceState!=null)
+        track = if (savedInstanceState != null)
             savedInstanceState.getParcelable(ONE_TRACK)!!
         else
             intent.getParcelableExtra(SearchActivity.TRACK_DATA)!!
 
         showData(track)
     }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelable(ONE_TRACK, track)
     }
 
-    private fun initUI(){
+    private fun initUI() {
         val tvBack = findViewById<TextView>(R.id.ivBack)
         tvBack.setOnClickListener { finish() }
 
         buttonGroup = findViewById(R.id.buttonGroup)
         tvTrackImage = findViewById(R.id.ivTrackImage)
-        tvTrackName  = findViewById(R.id.tvTrackName)
+        tvTrackName = findViewById(R.id.tvTrackName)
         tvBand = findViewById(R.id.tvBand)
         tvTimer = findViewById(R.id.tvTimer)
         tvDurationTrackData = findViewById(R.id.tvDurationTrack_data)
@@ -66,38 +68,43 @@ class TrackActivity : AppCompatActivity() {
         tvGenreData = findViewById(R.id.tvGenre_data)
         tvCountryData = findViewById(R.id.tvCountry_data)
     }
-    private fun showData(track: Track){
+
+    private fun showData(track: Track) {
+        var radius = resources.getDimensionPixelOffset(R.dimen.at_radius_Art)
 
         Glide.with(this)
             .load(track.getArtworkUrl512())
             .placeholder(R.drawable.ic_no_track_image)
             .fitCenter()
-            .transform(RoundedCorners(2))
+            .transform(RoundedCorners(radius))
             .into(tvTrackImage)
 
-        track.trackName?.let { tvTrackName.text = track.trackName} ?: run {
-            tvTrackName.text = resources.getString(R.string.at_no_data) }
+        track.trackName?.let { tvTrackName.text = it } ?: run {
+            tvTrackName.text = resources.getString(R.string.at_no_data)
+        }
 
-        track.artistName?.let { tvBand.text = track.artistName} ?: run {
-            tvBand.text = resources.getString(R.string.at_no_data) }
+        track.artistName?.let { tvBand.text = it } ?: run {
+            tvBand.text = resources.getString(R.string.at_no_data)
+        }
 
-        tvTimer.text =  resources.getString(R.string.at_empty_timer)
+        tvTimer.text = resources.getString(R.string.at_empty_timer)
         track.trackTimeMillis.let { tvDurationTrackData.text = track.getDuration() }
 
-        //if(track.collectionName.equals("Tomorrow")) buttonGroup.visibility = View.GONE //test
-
-        track.collectionName?.let { tvAlbumData.text = track.collectionName }?: run {
+        track.collectionName?.let { tvAlbumData.text = track.collectionName } ?: run {
             tvAlbumData.text = resources.getString(R.string.at_no_data)
             buttonGroup.visibility = View.GONE
         }
 
-        track.releaseDate?.let { tvYearData.text = track.releaseDate.substring(0,4) }?: run {
-            tvYearData.text = resources.getString(R.string.at_no_data) }
+        track.releaseDate?.let { tvYearData.text = it.substring(0, 4) } ?: run {
+            tvYearData.text = resources.getString(R.string.at_no_data)
+        }
 
-        track.primaryGenreName?.let { tvGenreData.text = track.primaryGenreName }?: run {
-            tvGenreData.text = resources.getString(R.string.at_no_data) }
+        track.primaryGenreName?.let { tvGenreData.text = it } ?: run {
+            tvGenreData.text = resources.getString(R.string.at_no_data)
+        }
 
-        track.country?.let { tvCountryData.text = track.country }?: run {
-            tvCountryData.text = resources.getString(R.string.at_no_data) }
+        track.country?.let { tvCountryData.text = it } ?: run {
+            tvCountryData.text = resources.getString(R.string.at_no_data)
+        }
     }
 }

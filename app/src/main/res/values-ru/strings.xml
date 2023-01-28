@@ -56,7 +56,6 @@
     <string name="sv_more">Подробнее</string>
 
     <!--  track_activity  -->
-    <string name="at_empty">            </string>
     <string name="at_track_name">Полное наименование трека</string>
     <string name="at_band_name">Наименование группы</string>
     <string name="at_duration">Продолжительность</string>
