@@ -81,6 +81,7 @@
     <dimen name="at_add_like51">51dp</dimen>
     <dimen name="at_data_text13">13sp</dimen>
     <dimen name="data_text_marginTop17">17dp</dimen>
+    <dimen name="at_radius_Art">8dp</dimen>
 
 
 </resources>

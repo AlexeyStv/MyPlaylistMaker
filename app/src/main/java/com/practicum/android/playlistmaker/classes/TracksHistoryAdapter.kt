@@ -17,8 +17,10 @@ class TracksHistoryAdapter(
     }
 
     override fun onBindViewHolder(holder: TracksViewHolder, position: Int) {
-        holder.bind(tracks[position])
-        holder.itemView.setOnClickListener { listener(tracks[position]) }
+        if(position>=0 && position<tracks.size){
+            holder.bind(tracks[position])
+            holder.itemView.setOnClickListener { listener(tracks[position]) }
+        }
     }
 
     override fun getItemCount(): Int {

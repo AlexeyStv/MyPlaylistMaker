@@ -56,7 +56,6 @@
     <string name="sv_more">In details</string>
 
     <!--  track_activity  -->
-    <string name="at_empty">            </string>
     <string name="at_track_name">Full track name</string>
     <string name="at_band_name">Band name</string>
     <string name="at_empty_timer" translatable="false">00:00</string>

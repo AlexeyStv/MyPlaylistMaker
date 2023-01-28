@@ -74,9 +74,10 @@ class SearchActivity : AppCompatActivity() {
 
     //History data
     private var historyTracks: MutableList<Track> = ArrayList(10)
-    private var adapterHistory: TracksHistoryAdapter = TracksHistoryAdapter(historyTracks){track ->
-        toTrackActivity(track)
-    }
+    private var adapterHistory: TracksHistoryAdapter =
+        TracksHistoryAdapter(historyTracks) { track ->
+            toTrackActivity(track)
+        }
     private lateinit var history: SearchHistory
 
     //
@@ -138,24 +139,23 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun initEvent() {
-        adapterTr = TracksAdapter(tracks) {
-                track -> history.addTrack(track)
-                toTrackActivity(track)
-        }
+
         recView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recView.adapter = adapterTr
 
         ivClearText.setOnClickListener { clearSearchData() }
-
         val simpleTextWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s.isNullOrEmpty()) {
+                    //цепочка событий -> при очистке строки поиска
                     ivClearText.visibility = View.INVISIBLE
                     clearRecyclerView()
-
                     hideItunesData()
-                    searchState = StateServerError()
+
+                    searchState = StateNullResult() //StateServerError()
+                    hideMessage()
+
                     history = SearchHistory(getSharedPreferences(PM_PREFERENCES, MODE_PRIVATE))
                     showHistory()
                 } else
@@ -360,15 +360,14 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun showHistory() {
-        historyTracks = history.getTracksHistory().toMutableList()
+        historyTracks.clear()
+        historyTracks.addAll(history.getTracksHistory().toMutableList())
 
         if (historyTracks.size > 0) {
-            adapterHistory = TracksHistoryAdapter(historyTracks){track ->
-                toTrackActivity(track)
-            }
+            adapterHistory.notifyDataSetChanged()
+
             rvHistory.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
             rvHistory.adapter = adapterHistory
-
             layoutHistory.visibility = View.VISIBLE
         } else
             hideHistory()
@@ -386,7 +385,7 @@ class SearchActivity : AppCompatActivity() {
         hideHistory()
     }
 
-    private fun toTrackActivity(track: Track){
+    private fun toTrackActivity(track: Track) {
         val intent = Intent(this, TrackActivity::class.java)
         intent.putExtra(TRACK_DATA, track)
         startActivity(intent)
