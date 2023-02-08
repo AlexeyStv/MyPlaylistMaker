@@ -6,6 +6,8 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -15,6 +17,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -43,17 +46,24 @@ class SearchActivity : AppCompatActivity() {
     private var tracks: ArrayList<Track> = ArrayList()
     private var adapterTr: TracksAdapter =
         TracksAdapter(tracks) { track ->
-            history.addTrack(track)
-            toTrackActivity(track)
+            if (clickDebounce()) {
+                history.addTrack(track)
+                toTrackActivity(track)
+            }
         }
+
     private lateinit var recView: RecyclerView
 
     companion object {
+        const val SEARCH_TEXT_PREV = "SEARCH_TEXT_PREV"
         const val SEARCH_TEXT = "SEARCH_TEXT"
         const val CURRENT_STATE = "CURRENT_STATE"
         const val TRACK_LIST = "iTrackList"
         const val PM_PREFERENCES = "pm_preferences"
         const val TRACK_DATA = "data_track"
+
+        private const val CLICK_DEBOUNCE_DELAY = 1000L  //отложенный клик
+        private const val SEARCH_DEBOUNCE_DELAY = 2000L //отложенный запрос поиска
     }
 
     //UI
@@ -76,19 +86,45 @@ class SearchActivity : AppCompatActivity() {
     private var historyTracks: MutableList<Track> = ArrayList(10)
     private var adapterHistory: TracksHistoryAdapter =
         TracksHistoryAdapter(historyTracks) { track ->
-            toTrackActivity(track)
+            if (clickDebounce())
+                toTrackActivity(track)
         }
+
     private lateinit var history: SearchHistory
-
-    //
     private var searchState: SState? = StateNullResult()
-
     private val itunesBaseUrl = "https://itunes.apple.com"
     private val retrofit = Retrofit.Builder()
         .baseUrl(itunesBaseUrl)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
     private val itunesService = retrofit.create(ITunesApi::class.java)
+
+    //
+    private lateinit var progressBar: ProgressBar
+    var previousQuery = " "
+
+    //отсрочка нажатия
+    private var isClickAllowed = true
+    private val handler = Handler(Looper.getMainLooper())
+    private fun clickDebounce(): Boolean {
+        val current = isClickAllowed
+        if (isClickAllowed) {
+            isClickAllowed = false
+            handler.postDelayed({ isClickAllowed = true }, CLICK_DEBOUNCE_DELAY)
+        }
+        return current
+    }
+
+    private val searchRunnable = Runnable {
+        hideItunesData()
+        hideHistory()
+        downloadData()
+    }
+
+    private fun searchDebounce() {
+        handler.removeCallbacks(searchRunnable)
+        handler.postDelayed(searchRunnable, SEARCH_DEBOUNCE_DELAY)
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -101,6 +137,7 @@ class SearchActivity : AppCompatActivity() {
 
         if (savedInstanceState != null) {
             val searchText = savedInstanceState.getString(SEARCH_TEXT, "").toString()
+            previousQuery = savedInstanceState.getString(SEARCH_TEXT_PREV, "").toString()
             searchState = savedInstanceState.getParcelable(CURRENT_STATE)
             val previousTracks: ArrayList<Track> =
                 savedInstanceState.getParcelableArrayList(TRACK_LIST)!!
@@ -116,10 +153,13 @@ class SearchActivity : AppCompatActivity() {
         outState.putString(SEARCH_TEXT, etSearch.text.toString())
         outState.putParcelable(CURRENT_STATE, searchState)
         outState.putParcelableArrayList(TRACK_LIST, tracks)
+        outState.putString(SEARCH_TEXT_PREV, previousQuery)
     }
 
     //--------------------------------------------------//
     private fun initUI() {
+        progressBar = findViewById(R.id.progressBar)
+
         val tvBack = findViewById<TextView>(R.id.tvBack)
         tvBack.setOnClickListener { finish() }
         etSearch = findViewById(R.id.etSearch)
@@ -176,6 +216,19 @@ class SearchActivity : AppCompatActivity() {
 
         btUpdate.setOnClickListener { downloadData() }
         btnClear.setOnClickListener { clearHistoryPreferences() }
+
+        etSearch.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (etSearch.text.toString().trim().isNotEmpty() &&
+                    previousQuery != etSearch.text.toString().trim()
+                ) {
+                    searchDebounce()
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {}
+        })
     }
 
     private fun showData(searchTxt: String, prevTracks: ArrayList<Track>) {
@@ -211,6 +264,7 @@ class SearchActivity : AppCompatActivity() {
     private fun downloadData() {
         if (checkQueryInput()) {
             if (isInternet(this)) {
+                progressBar.visibility = View.VISIBLE
                 getITunesData()
             } else {
                 searchState = StateNoConnection()
@@ -296,11 +350,14 @@ class SearchActivity : AppCompatActivity() {
     private fun gettingData() {
 
         val search = etSearch.text.toString()
+        previousQuery = search
+
         itunesService.search(search).enqueue(object : Callback<ITunesResponse> {
             override fun onResponse(
                 call: Call<ITunesResponse>,
                 response: Response<ITunesResponse>
             ) {
+                progressBar.visibility = View.GONE
                 when (response.code()) {
                     200 -> {
                         if (response.body()?.results?.isNotEmpty() == true) {
@@ -320,6 +377,7 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<ITunesResponse>, t: Throwable) {
+                progressBar.visibility = View.GONE
                 searchState = StateServerError()
                 showInfo(searchState)
             }

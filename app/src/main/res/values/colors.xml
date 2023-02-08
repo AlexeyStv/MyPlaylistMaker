@@ -56,4 +56,6 @@
     <color name="grey_small_button">#c6c6c8</color>
     <color name="white_small_button">#ffffff</color>
 
+    <color name="progress_bar_color">#6200EE</color>
+
 </resources>
